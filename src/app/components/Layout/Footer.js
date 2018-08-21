@@ -2,15 +2,20 @@ import React, { Component } from 'react';
 
 class Footer extends Component {
   render() {
-    return (
-      <footer>Footer</footer>
-    );
+    if(window.location.pathname === "/") {
+      return (<div></div>);
+    } else {
+      return (
+        <div className="text-center">
+          <footer class="footer">
+          <div class="container text-center">
+                <span class="text-muted">React Footer</span>
+            </div>
+        </footer>
+        </div>
+      );
+    }
   }
 }
-const AuthHeader = ({ isLoggedIn }) => {
-  if(isLoggedIn) {
-      return (<Footer />);
-  }
-  return (<div></div>);
-}
-export default AuthHeader;
+
+export default Footer;

@@ -6,11 +6,9 @@ import store from './app/store';
 class App extends Component {
   render() {
     return (
-      <div>
-          <Provider store={store}>
-            <Layout />
-          </Provider>
-      </div>
+      <Provider store={store}>
+        <Layout />
+      </Provider>
     );
   }
 }
