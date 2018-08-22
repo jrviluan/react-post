@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../../assets/style.css';
 
 class Footer extends Component {
   render() {
@@ -6,13 +7,11 @@ class Footer extends Component {
       return (<div></div>);
     } else {
       return (
-        <div className="text-center">
-          <footer class="footer">
-          <div class="container text-center">
-                <span class="text-muted">React Footer</span>
+        <footer className="footer">
+          <div className="container text-center">
+                <span className="text-muted">React Footer</span>
             </div>
         </footer>
-        </div>
       );
     }
   }

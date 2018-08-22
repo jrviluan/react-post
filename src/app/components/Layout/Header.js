@@ -9,6 +9,7 @@ import {
     NavLink
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import '../../assets/style.css';
 
 class Header extends Component {
     constructor(props) {
@@ -30,14 +31,14 @@ class Header extends Component {
             return (<div></div>);
         } else {
             return (
-                <div>
+                <div className="navbar-fixed-top">
                     <Navbar color="light" light expand="md">
                         <NavbarBrand href="/">reactstrap</NavbarBrand>
                         <NavbarToggler onClick={this.toggle} />
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
                                 <NavItem>
-                                    <NavLink tag={Link} to="/home">Home</NavLink>
+                                    <NavLink tag={Link} to="/post">Post</NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink tag={Link} to="/user">User</NavLink>
