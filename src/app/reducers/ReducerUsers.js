@@ -1,22 +1,20 @@
-export default function(){
-    return [
-        {
-            id: 1,
-            firstname: 'Jay',
-            lastname: 'Viluan',
-            username: 'jay',
-            password: 'pass',
-            age: 24,
-            description: 'oh yeah'
-        },
-        {
-            id: 2,
-            firstname: 'Genina',
-            lastname: 'Gabuten',
-            username: 'nina',
-            password: 'pass',
-            age: 20,
-            description: 'thats good'
-        }
-    ]
+import { FETCH_USERS } from '../actions/User/Types';
+
+const initialState = {
+    items: [],
+    item: {}
+}
+
+export default function(state = initialState, action){
+    switch(action.type){
+        case FETCH_USERS: 
+            return {
+                ...state,
+                items: action.payload
+            }
+        
+
+        default: 
+            return state;
+    }
 }

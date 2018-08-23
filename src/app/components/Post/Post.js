@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PostForm from './PostForm';
 import { connect } from 'react-redux';
-import { fetchPosts, deletePost } from '../../actions/PostAction';
+import { fetchPosts, deletePost } from '../../actions/Post/PostAction';
 
 class Post extends Component {
     constructor(){
@@ -27,10 +27,6 @@ class Post extends Component {
         if(nextProps.newPost){
             this.props.posts.unshift(nextProps.newPost); 
         }
-    }
-
-    componentDidUpdate(fetchData){
-     
     }
 
     deletePost(postId){

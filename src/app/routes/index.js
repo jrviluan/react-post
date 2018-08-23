@@ -7,21 +7,23 @@ import Login  from '../components/Login/Login';
 import Home  from '../components/Pages/Home';
 import About from '../components/Pages/About';
 import Contact  from '../components/Pages/Contact';
-import User  from '../components/Pages/User';
+import User  from '../components/User/User';
 import Post from '../components/Post/Post';
 
 export default() =>(
     <Router>
         <div>
             <Header/>
-            <Switch>
-                <Route exact path="/" component={Login}/>
-                <Route path="/home" component={Home}/>
-                <Route path="/post" component={Post}/>
-                <Route path="/user" component={User}/>
-                <Route path="/about" component={About}/>
-                <Route path="/contact" component={Contact}/>
-            </Switch>
+            <div className="m-top">
+                <Switch>
+                    <Route exact path="/ " component={Login}/>
+                    <Route path="/home" component={Home}/>
+                    <Route path="/post" component={Post}/>
+                    <Route path="/user" component={User}/>
+                    <Route path="/about" component={About}/>
+                    <Route path="/contact" component={Contact}/>
+                </Switch>
+            </div>
             <Footer/>
         </div>
     </Router>
