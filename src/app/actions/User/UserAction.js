@@ -1,4 +1,4 @@
-import { FETCH_USERS } from './Types';
+import { FETCH_USERS, DELETE_USER } from './Types';
 
 export const fetchUsers = () => dispatch => {
     fetch('https://jsonplaceholder.typicode.com/users')
@@ -8,3 +8,14 @@ export const fetchUsers = () => dispatch => {
             payload: users
         }));
 }
+
+export const deleteUser = (userId) => dispatch => {
+    fetch('https://jsonplaceholder.typicode.com/users/'+ userId, {
+        method: 'DELETE'
+    })
+    .then(dispatch({
+        type: DELETE_USER,
+        payload: userId
+    }))
+}
+

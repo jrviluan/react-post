@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createPost, updatePost } from '../../actions/Post/PostAction';
+import { createPost, updatePost } from '../actions/Post/PostAction';
 
 class PostForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-                id:null,
-                title: '',
-                body: '',
-                isNew: true
+            id:null,
+            title: '',
+            body: '',
+            isNew: true
         }
 
         this.onChange = this.onChange.bind(this);
@@ -108,7 +108,6 @@ class PostForm extends Component {
                             value={this.state.body}
                             onChange={this.onChange}/>
                         </div>
-                        
                         {button}
                     </div>
                 </form>

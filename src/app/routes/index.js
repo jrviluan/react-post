@@ -16,7 +16,7 @@ export default() =>(
             <Header/>
             <div className="m-top">
                 <Switch>
-                    <Route exact path="/ " component={Login}/>
+                    <Route exact path="/" component={Login}/>
                     <Route path="/home" component={Home}/>
                     <Route path="/post" component={Post}/>
                     <Route path="/user" component={User}/>

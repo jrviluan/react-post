@@ -32,7 +32,7 @@ export default function(state = initialState, action){
                 items: updatedItems 
             }
         
-        case DELETE_POST:{
+        case DELETE_POST:
             const newState = Object.assign([], state);
 
             const filteredItems = newState.items.filter(items => {
@@ -43,7 +43,6 @@ export default function(state = initialState, action){
                 ...state,
                 items: filteredItems 
             }
-        }
 
         default:
             return state;
