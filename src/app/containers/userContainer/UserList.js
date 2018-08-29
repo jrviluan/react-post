@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchUsers, deleteUser } from '../actions/User/UserAction';
+import { fetchUsers, deleteUser, updateAddUser } from '../../redux/actions/User/UserAction';
 import { connect } from 'react-redux';
 import UserForm from './UserForm';
 
@@ -9,10 +9,6 @@ class UserList extends Component {
         super();
 
         this.deleteUser = this.deleteUser.bind(this);
-
-        this.state = {
-            isAddUser: false, 
-        }
     }
 
     componentWillMount(){
@@ -24,11 +20,13 @@ class UserList extends Component {
     }
     
     addUser(){
-        this.setState({ isAddUser: true })
+        this.props.updateAddUser(true);
     }
 
-    cancel(){
-        this.setState({ isAddUser: false })
+    componentWillReceiveProps(nextProps){
+        if(nextProps.newUser.name !== undefined){
+            this.props.users.unshift(nextProps.newUser); 
+        }
     }
 
     render() {
@@ -48,8 +46,8 @@ class UserList extends Component {
                 </tr>
             </tbody>        
         ))
-
-        if(this.state.isAddUser){
+        
+        if(this.props.isAddUser){
             return (
                 <div className="row">
                     <div className="container table-responsive">
@@ -87,7 +85,9 @@ class UserList extends Component {
 }
 
 const mapStateToProps = state => ({
-    users: state.users.items
+    users: state.users.items,
+    newUser: state.users.item,
+    isAddUser: state.users.isAddUser
 })
 
-export default connect(mapStateToProps, { fetchUsers, deleteUser })(UserList);
+export default connect(mapStateToProps, { fetchUsers, deleteUser, updateAddUser })(UserList);

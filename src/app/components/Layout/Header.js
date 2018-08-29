@@ -38,19 +38,10 @@ class Header extends Component {
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
                                 <NavItem>
-                                    <NavLink tag={Link} to="/home">Home</NavLink>
-                                </NavItem>
-                                <NavItem>
                                     <NavLink tag={Link} to="/post">Post</NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink tag={Link} to="/user">User</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} to="/about">About</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} to="/contact">Contact</NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink tag={Link} to="/">Logout</NavLink>

@@ -1,8 +1,9 @@
-import { FETCH_USERS, DELETE_USER } from '../actions/User/Types';
+import { FETCH_USERS, DELETE_USER, UPDATE_IS_ADD_USER, CREATE_USER } from '../actions/User/Types';
 
 const initialState = {
     items: [],
-    item: {}
+    item: {},
+    isAddUser: false
 }
 
 export default function(state = initialState, action){
@@ -14,6 +15,12 @@ export default function(state = initialState, action){
                 items: action.payload 
             }
 
+        case CREATE_USER:
+            return {
+                ...state,
+                item: action.payload
+            }
+        
         case DELETE_USER:
 
             const newState = Object.assign([], state);
@@ -27,6 +34,13 @@ export default function(state = initialState, action){
                 items: filteredUsers
             }
 
+        case UPDATE_IS_ADD_USER:
+
+            return {
+                ...state,
+                isAddUser: action.payload
+            }
+            
         default: 
             return state;
     }

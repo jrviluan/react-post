@@ -1,14 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import Header from '../components/Layout/Header';
-import Footer from '../components/Layout/Footer';
-import Login  from '../components/Login/Login';
-import Home  from '../components/Pages/Home';
-import About from '../components/Pages/About';
-import Contact  from '../components/Pages/Contact';
-import User  from '../components/User/User';
-import Post from '../components/Post/Post';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
+import Login  from '../components/login/Login';
+import User  from '../components/user/User';
+import Post from '../components/post/Post';
 
 export default() =>(
     <Router>
@@ -17,11 +14,8 @@ export default() =>(
             <div className="m-top">
                 <Switch>
                     <Route exact path="/" component={Login}/>
-                    <Route path="/home" component={Home}/>
                     <Route path="/post" component={Post}/>
                     <Route path="/user" component={User}/>
-                    <Route path="/about" component={About}/>
-                    <Route path="/contact" component={Contact}/>
                 </Switch>
             </div>
             <Footer/>

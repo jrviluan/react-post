@@ -77,7 +77,7 @@ class Login extends Component {
         }
         
         if(this.state.isFormValid) {
-            return (<Redirect to="/home"/>)
+            return (<Redirect to="/post"/>)
         } else {
             return (
                 <form>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PostForm from './PostForm';
 import { connect } from 'react-redux';
-import { fetchPosts, deletePost } from '../actions/Post/PostAction';
+import { fetchPosts, deletePost } from '../../redux/actions/Post/PostAction';
 
 class PostList extends Component {
     constructor(){
