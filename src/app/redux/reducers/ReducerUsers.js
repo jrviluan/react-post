@@ -1,9 +1,11 @@
-import { FETCH_USERS, DELETE_USER, UPDATE_IS_ADD_USER, CREATE_USER } from '../actions/User/Types';
+import { FETCH_USERS, DELETE_USER, UPDATE_IS_ADD_USER, CREATE_USER, EDIT_USER, IS_EDIT_USER } from '../actions/User/Types';
 
 const initialState = {
-    items: [],
-    item: {},
-    isAddUser: false
+    users: [],
+    user: {},
+    isAdd: false,
+    userDetails: {},
+    isUpdate: false
 }
 
 export default function(state = initialState, action){
@@ -12,33 +14,50 @@ export default function(state = initialState, action){
         case FETCH_USERS:
             return {
                 ...state,
-                items: action.payload 
+                users: action.users,
+                isAdd: state.isAdd
             }
 
         case CREATE_USER:
             return {
                 ...state,
-                item: action.payload
+                user: action.payload
             }
+        
+        case EDIT_USER:
+            const updatedUser = state.users.map(user => {
+                if(user.id === action.user.id){
+                    return { ...user, ...action.user }
+                }
+                return user
+            })
+            return { 
+                ...state,
+                users: updatedUser,
+                isAdd: action.isAdd
+            }
+
         
         case DELETE_USER:
 
             const newState = Object.assign([], state);
         
-            const filteredUsers = newState.items.filter(users => {
+            const filteredUsers = newState.users.filter(users => {
                 return users.id !== action.payload
             })
             
             return {
                 ...state,
-                items: filteredUsers
+                users: filteredUsers
             }
 
         case UPDATE_IS_ADD_USER:
-
             return {
                 ...state,
-                isAddUser: action.payload
+                isAdd: action.isAdd,
+                userDetails: action.userDetails,
+                isUpdate: action.isUpdate,
+                user: {},
             }
             
         default: 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { updateAddUser, createUser } from '../../redux/actions/User/UserAction';
+import { isAddUser, createUser, editUser } from '../../redux/actions/User/UserAction';
 import { connect } from 'react-redux';
 
 class UserForm extends Component {
@@ -7,18 +7,31 @@ class UserForm extends Component {
         super(props);
 
         this.onChange = this.onChange.bind(this);
+        this.onUpdate = this.onUpdate.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
-            isNew: true,
             button: false,
+            id: null,
             name: '',
             username: '',
             email: ''
         }
     }
 
-    onSubmit(){
+    componentWillMount() {
+        if(this.props.userDetails.name !== undefined){
+            this.setState({
+                id: this.props.userDetails.id,
+                name: this.props.userDetails.name,
+                username: this.props.userDetails.username,
+                email:this.props.userDetails.email,
+            })
+        }
         
+    }
+
+    onSubmit(){
         const user = {
             name: this.state.name,
             username: this.state.username,
@@ -26,11 +39,22 @@ class UserForm extends Component {
         }
 
         this.props.createUser(user);
-        this.backToUserList();
+        this.onCancel();
     }
 
-    backToUserList(){
-        this.props.updateAddUser(false);
+    onUpdate(){
+        const user = {
+            id: this.state.id,
+            name: this.state.name,
+            username: this.state.username,
+            email: this.state.email
+        }
+        this.props.editUser(user);
+        this.onCancel();
+    }
+
+    onCancel(){
+        this.props.isAddUser(false);
     }
 
     onChange(e){
@@ -41,13 +65,13 @@ class UserForm extends Component {
 
     render(){
         const divStyle = { paddingLeft: '0px'};
-        const isNew = this.state.isNew;
+        const isUpdate = this.props.isUpdate;
         let button;
 
-        if(isNew){
-            button = <button type="submit" onClick={this.onSubmit.bind(this)} className="btn btn-primary">Submit</button>;   
+        if(isUpdate){
+            button = <button type="submit" onClick={() => this.onUpdate()} className="btn btn-primary">Save Changes</button>;   
         } else{
-            button = <button type="submit" className="btn btn-primary">Save Changes</button>;     
+            button = <button type="submit" onClick={() => this.onSubmit()} className="btn btn-primary">Submit</button>;                 
         }
 
         return(
@@ -84,11 +108,17 @@ class UserForm extends Component {
                     {button}  &nbsp; 
                     <button 
                         className="btn btn-secondary"
-                        onClick={this.backToUserList.bind(this)}>Cancel</button>                 
+                        onClick={this.onCancel.bind(this)}>Cancel
+                    </button>                 
                 </div>
             </div>
         )
     }
 }
 
-export default connect (null,{ updateAddUser, createUser })(UserForm);
+const mapStateToProps = state => ({
+    userDetails: state.users.userDetails,
+    isUpdate: state.users.isUpdate,
+})
+
+export default connect (mapStateToProps,{ isAddUser, createUser, editUser })(UserForm);

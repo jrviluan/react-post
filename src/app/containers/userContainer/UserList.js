@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchUsers, deleteUser, updateAddUser } from '../../redux/actions/User/UserAction';
+import { fetchUsers, deleteUser, isAddUser } from '../../redux/actions/User/UserAction';
 import { connect } from 'react-redux';
 import UserForm from './UserForm';
 
@@ -9,6 +9,7 @@ class UserList extends Component {
         super();
 
         this.deleteUser = this.deleteUser.bind(this);
+        this.editUser = this.editUser.bind(this);
     }
 
     componentWillMount(){
@@ -20,17 +21,21 @@ class UserList extends Component {
     }
     
     addUser(){
-        this.props.updateAddUser(true);
+       this.props.isAddUser(true, {}, false);
+    }
+
+    editUser(isAdd, userDetails, isUpdate){
+       this.props.isAddUser(isAdd, userDetails, isUpdate);
     }
 
     componentWillReceiveProps(nextProps){
+
         if(nextProps.newUser.name !== undefined){
             this.props.users.unshift(nextProps.newUser); 
         }
     }
 
     render() {
-        
         const userList = this.props.users.map(user => (
             <tbody key={user.id}>         
                 <tr>
@@ -38,7 +43,7 @@ class UserList extends Component {
                     <td>{user.username}</td>
                     <td>{user.email}</td>
                     <td>
-                        <button className="btn btn-primary">Edit</button>&nbsp;
+                        <button onClick={()=>this.editUser(true, user, true)} className="btn btn-primary">Edit</button>&nbsp;
                         <button 
                             onClick={()=>this.deleteUser(user.id)}
                             className="btn btn-danger">Delete</button>
@@ -47,47 +52,43 @@ class UserList extends Component {
             </tbody>        
         ))
         
-        if(this.props.isAddUser){
+        if(this.props.isAdd){
             return (
-                <div className="row">
-                    <div className="container table-responsive">
-                        <UserForm/>
-                    </div>
+                <div className="container table-responsive">
+                    <UserForm/>
                 </div>
             )
         } else {
             return(
-                <div className="row">
-                    <div className="container table-responsive">
-                        <div className="text-right"> 
-                            <button 
-                                className="btn btn-primary text-right"
-                                onClick={this.addUser.bind(this)}>
-                                Add User
-                            </button>
-                        </div>
-                        <table className="mt-1 table table-hover">
-                            <thead className="thead-light">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th></th>
-                                </tr>
-                            </thead>                
-                            {userList}  
-                        </table>
-                    </div>    
-                </div>
+                <div className="container table-responsive">
+                    <div className="text-right"> 
+                        <button 
+                            className="btn btn-primary text-right"
+                            onClick={this.addUser.bind(this)}>
+                            Add User
+                        </button>
+                    </div>
+                    <table className="mt-1 table table-hover">
+                        <thead className="thead-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th></th>
+                            </tr>
+                        </thead>                
+                        {userList}  
+                    </table>
+                </div>    
             )
         }
     }
 }
 
 const mapStateToProps = state => ({
-    users: state.users.items,
-    newUser: state.users.item,
-    isAddUser: state.users.isAddUser
+    users: state.users.users,
+    newUser: state.users.user,
+    isAdd: state.users.isAdd
 })
 
-export default connect(mapStateToProps, { fetchUsers, deleteUser, updateAddUser })(UserList);
+export default connect(mapStateToProps, { fetchUsers, deleteUser, isAddUser })(UserList);

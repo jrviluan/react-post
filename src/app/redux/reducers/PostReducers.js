@@ -27,6 +27,7 @@ export default function(state = initialState, action){
                 }
                 return item
             })
+            
             return { 
                 ...state,
                 items: updatedItems 
